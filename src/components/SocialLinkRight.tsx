@@ -3,7 +3,7 @@ import { SiJavascript, SiTailwindcss, SiTypescript } from "react-icons/si";
 
 const SocialLinkRight = () => {
   return (
-    <div className="flex flex-col fixed right-6 top-1/2 -translate-y-1/2 z-50 gap-5 items-center md:flex">
+    <div className=" flex-col fixed right-6 top-1/2 -translate-y-1/2 z-50 gap-5 items-center hidden md:flex">
       {/* Background Container */}
       <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-4 border border-slate-700/50 shadow-2xl">
         <div className="flex flex-col gap-5">
