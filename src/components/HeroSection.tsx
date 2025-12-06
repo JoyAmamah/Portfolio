@@ -14,6 +14,7 @@ const HeroSection = () => {
         <img
           src={image}
           alt="Profile"
+          loading="lazy"
           className="w-full h-full rounded-full shadow-2xl object-cover border-2 border-amber-400"
         />
       </motion.div>
@@ -100,6 +101,7 @@ const HeroSection = () => {
           <img
             src={image}
             alt="Profile"
+            loading="lazy"
             className="w-full h-96 rounded-2xl shadow-2xl object-cover relative z-10 border-2 border-slate-700"
           />
           <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-amber-400/10 rounded-full blur-xl z-0"></div>

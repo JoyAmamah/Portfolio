@@ -71,6 +71,7 @@ const About = () => {
           <div className="absolute inset-0 bg-gradient-to-tr from-amber-400/10 to-blue-400/10 rounded-2xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-300"></div>
           <img
             src={profileImage}
+            loading="lazy"
             alt="Joy Amamah - Frontend Developer"
             className="w-full h-full object-cover rounded-2xl relative z-10 shadow-2xl group-hover:shadow-3xl transition-all duration-300 border-2 border-slate-700"
           />

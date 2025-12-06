@@ -176,6 +176,7 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
           <div className="w-full h-full bg-slate-700 flex items-center justify-center">
             <img
               src={project.image}
+              loading="lazy"
               alt={`${project.title} screenshot`}
               className="w-full h-full object-cover"
               onError={(e) => {
