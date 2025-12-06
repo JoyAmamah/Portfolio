@@ -26,7 +26,7 @@ const Projects = () => {
     },
      {
       id: 6,
-      title: "Recipe Finder App",
+      title: "Benin Club App",
       description: "The BeninClub1931 Member App is the official mobile platform for members of Benin Club 1931, one of Nigeria’s leading social and recreational clubs. It provides easy access to announcements, events, digital wallet payments, and secure member login with biometric support.",
       technologies: ["React Native", "MaterialUI", "Tailwind CSS", "Expo"],
       githubUrl: "",

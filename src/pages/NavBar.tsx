@@ -53,7 +53,7 @@ const NavBar = () => {
             className="px-2 py-2 border-b-2 border-transparent hover:border-amber-400 hover:text-white transition-all duration-300"
           >
             About
-          </Link>
+          </Link> 
           <Link
             to="/contact"
             className="px-2 py-2 border-b-2 border-transparent hover:border-blue-400 hover:text-white transition-all duration-300"
