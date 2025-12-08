@@ -132,7 +132,6 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Other Projects */}
       <div>
         <motion.h2 
           className="text-2xl md:text-3xl font-bold text-slate-200 mb-8 text-center"
@@ -154,7 +153,6 @@ const Projects = () => {
   );
 };
 
-// Project Card Component
 const ProjectCard = ({ project, index, featured = false }: { project: Project; index: number; featured?: boolean }) => {
   return (
     <motion.div
@@ -168,11 +166,9 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
       whileHover={{ y: -5 }}
     >
       <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300">
-        {/* Project Image */}
         <div className="relative h-48 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-emerald-400/10 z-10"></div>
           
-          {/* Actual Image with Fallback */}
           <div className="w-full h-full bg-slate-700 flex items-center justify-center">
             <img
               src={project.image}
@@ -180,16 +176,13 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
               alt={`${project.title} screenshot`}
               className="w-full h-full object-cover"
               onError={(e) => {
-                // If image fails to load, show placeholder text
                 const target = e.target as HTMLImageElement;
                 target.style.display = 'none';
               }}
             />
-            {/* This span will only show if image fails to load */}
             <span className="text-slate-400 text-sm absolute">Project Image</span>
           </div>
           
-          {/* Overlay with buttons */}
           <div className="absolute inset-0 bg-slate-900/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20">
             <a
               href={project.githubUrl}
