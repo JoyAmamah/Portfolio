@@ -27,7 +27,7 @@ const Projects = () => {
      {
       id: 6,
       title: "Benin Club App",
-      description: "The BeninClub1931 Member App is the official mobile platform for members of Benin Club 1931, one of Nigeria’s leading social and recreational clubs. It provides easy access to announcements, events, digital wallet payments, and secure member login with biometric support.",
+      description: "The BeninClub1931 Member App is the official mobile platform for members of Benin Club 1931, one of Nigeria's leading social and recreational clubs. It provides easy access to announcements, events, digital wallet payments, and secure member login with biometric support.",
       technologies: ["React Native", "MaterialUI", "Tailwind CSS", "Expo"],
       githubUrl: "",
         liveUrl: "https://play.google.com/store/apps/details?id=com.beninclub1931.app",
@@ -46,7 +46,8 @@ const Projects = () => {
     {
       id: 3,
       title: "Food Ordering App",
- description: "A demo food app for ordering meals and table booking with responsive design and intuitive user interface.",      technologies: ["React", "Typescript", "", "Tailwindcss"],
+      description: "A demo food app for ordering meals and table booking with responsive design and intuitive user interface.",
+      technologies: ["React", "Typescript", "", "Tailwindcss"],
       githubUrl: "https://github.com/JoyAmamah/Food_App",
       liveUrl: "https://ja-foods.netlify.app/",
       image: "/images/foodapp.png"
@@ -94,7 +95,11 @@ const Projects = () => {
   const otherProjects = projects.filter(project => !project.featured);
 
   return (
-    <section className="min-h-screen px-10 bg-slate-900 pt-20 md:px-12 max-w-7xl mx-auto">
+    <section 
+      id="projects"
+      className="min-h-screen px-10 bg-slate-900 pt-20 md:px-12 max-w-7xl mx-auto"
+      aria-label="Projects section"
+    >
       {/* Header Section */}
       <motion.div
         className="text-center mb-16"
@@ -155,7 +160,7 @@ const Projects = () => {
 
 const ProjectCard = ({ project, index, featured = false }: { project: Project; index: number; featured?: boolean }) => {
   return (
-    <motion.div
+    <motion.article
       className={`group relative ${
         featured ? 'lg:col-span-1' : ''
       }`}
@@ -164,6 +169,7 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true }}
       whileHover={{ y: -5 }}
+      aria-label={`Project: ${project.title}`}
     >
       <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300">
         <div className="relative h-48 overflow-hidden">
@@ -173,14 +179,22 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
             <img
               src={project.image}
               loading="lazy"
-              alt={`${project.title} screenshot`}
+              alt={`Screenshot of ${project.title} project`}
               className="w-full h-full object-cover"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.style.display = 'none';
+                // Show a fallback
+                const parent = target.parentElement;
+                if (parent) {
+                  const fallback = document.createElement('div');
+                  fallback.className = 'w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-900/20 to-emerald-900/20';
+                  fallback.textContent = project.title;
+                  fallback.setAttribute('aria-label', `Placeholder for ${project.title} project`);
+                  parent.appendChild(fallback);
+                }
               }}
             />
-            <span className="text-slate-400 text-sm absolute">Project Image</span>
           </div>
           
           <div className="absolute inset-0 bg-slate-900/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20">
@@ -189,8 +203,10 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 bg-slate-800 rounded-full text-slate-300 hover:text-white hover:bg-slate-700 transition-all duration-300 transform hover:scale-110"
+              aria-label={`View ${project.title} source code on GitHub (opens in new tab)`}
             >
               <FaGithub size={20} />
+              <span className="sr-only">GitHub</span>
             </a>
             {project.liveUrl && (
               <a
@@ -198,8 +214,10 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-gradient-to-r from-blue-400 to-emerald-400 rounded-full text-slate-900 hover:from-blue-300 hover:to-emerald-300 transition-all duration-300 transform hover:scale-110"
+                aria-label={`View ${project.title} live demo (opens in new tab)`}
               >
                 <FaExternalLinkAlt size={20} />
+                <span className="sr-only">Live Demo</span>
               </a>
             )}
           </div>
@@ -216,7 +234,7 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
           </p>
 
           {/* Technologies */}
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-2 mb-4" aria-label="Technologies used">
             {project.technologies.map((tech, techIndex) => (
               <span
                 key={techIndex}
@@ -227,16 +245,17 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
             ))}
           </div>
 
-          {/* Action Buttons */}
+          {/* Action Buttons - FIXED ACCESSIBILITY ISSUE HERE */}
           <div className="flex gap-3">
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-slate-700 text-slate-300 rounded-lg hover:bg-slate-600 hover:text-white transition-all duration-300 text-sm font-medium flex-1 justify-center"
+              aria-label={`View ${project.title} source code on GitHub (opens in new tab)`}
             >
-              <FaGithub size={14} />
-              Code
+              <FaGithub size={14} aria-hidden="true" />
+              <span>View on GitHub</span>
             </a>
             {project.liveUrl && (
               <a
@@ -244,9 +263,10 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-400 to-emerald-400 text-slate-900 rounded-lg hover:from-blue-300 hover:to-emerald-300 transition-all duration-300 text-sm font-medium flex-1 justify-center"
+                aria-label={`View ${project.title} live demo (opens in new tab)`}
               >
-                <FaExternalLinkAlt size={14} />
-                Live Demo
+                <FaExternalLinkAlt size={14} aria-hidden="true" />
+                <span>View Live Demo</span>
               </a>
             )}
           </div>
@@ -255,7 +275,10 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
         {/* Featured Badge */}
         {project.featured && (
           <div className="absolute top-4 right-4">
-            <span className="px-3 py-1 bg-gradient-to-r from-amber-400 to-orange-400 text-slate-900 text-xs font-bold rounded-full shadow-lg">
+            <span 
+              className="px-3 py-1 bg-gradient-to-r from-amber-400 to-orange-400 text-slate-900 text-xs font-bold rounded-full shadow-lg"
+              aria-label="Featured project"
+            >
               Featured
             </span>
           </div>
@@ -264,7 +287,7 @@ const ProjectCard = ({ project, index, featured = false }: { project: Project; i
 
       {/* Glow Effect */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400/10 to-emerald-400/10 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300 -z-10"></div>
-    </motion.div>
+    </motion.article>
   );
 };
 

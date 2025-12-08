@@ -1,19 +1,24 @@
+import { memo, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import Technologies from "../components/Technologies";
+// Lazy load heavy components
+const Technologies = lazy(() => import("../components/Technologies"));
 import profileImage from "../assets/profileImg.jpeg"; 
+
+// Import only necessary Framer Motion features
+const MotionDiv = motion.div;
 
 const About = () => {
   return (
     <section className="pt-20 md:pt-32 px-6 md:px-12 mx-auto bg-slate-900 min-h-screen">
       {/* About Me Section */}
-      <motion.div
+      <MotionDiv
         className="flex flex-col px-16 md:flex-row items-center gap-10 md:gap-16 mb-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }}
         viewport={{ once: true, amount: 0.3 }} 
       >
         {/* Text Content */}
-        <motion.div
+        <MotionDiv
           className="flex-1"
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }}
@@ -58,10 +63,10 @@ const About = () => {
               full-stack engineer.
             </p>
           </div>
-        </motion.div>
+        </MotionDiv>
 
-        {/* Image */}
-        <motion.div
+        {/* Image with lazy loading */}
+        <MotionDiv
           className="w-full md:w-96 h-72 md:h-96 relative flex-shrink-0 group"
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1, transition: { duration: 0.8, ease: "easeOut" } }}
@@ -72,16 +77,18 @@ const About = () => {
           <img
             src={profileImage}
             loading="lazy"
+            width={384}
+            height={384}
             alt="Joy Amamah - Frontend Developer"
             className="w-full h-full object-cover rounded-2xl relative z-10 shadow-2xl group-hover:shadow-3xl transition-all duration-300 border-2 border-slate-700"
           />
           <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-400/10 rounded-full blur-xl z-0 group-hover:bg-emerald-400/10 transition-all duration-300"></div>
           <div className="absolute -top-4 -left-4 w-20 h-20 bg-amber-400/10 rounded-full blur-xl z-0 group-hover:bg-blue-400/10 transition-all duration-300"></div>
-        </motion.div>
-      </motion.div>
+        </MotionDiv>
+      </MotionDiv>
 
-      {/* Technologies Section */}
-      <motion.div
+      {/* Technologies Section with Suspense boundary */}
+      <MotionDiv
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }}
         viewport={{ once: true, amount: 0.3 }}
@@ -98,11 +105,17 @@ const About = () => {
         </div>
         
         <div className="mt-8">
-          <Technologies />
+          <Suspense fallback={
+            <div className="flex justify-center items-center h-40">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-400"></div>
+            </div>
+          }>
+            <Technologies />
+          </Suspense>
         </div>
-      </motion.div>
+      </MotionDiv>
     </section>
   );
 };
 
-export default About;
+export default memo(About);
